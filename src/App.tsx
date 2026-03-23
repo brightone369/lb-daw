@@ -1,4 +1,5 @@
 import { useSequencer, STEPS } from './useSequencer';
+import VocalTrack from './VocalTrack';
 import './App.css';
 
 export default function App() {
@@ -48,6 +49,8 @@ export default function App() {
           </div>
         ))}
       </div>
+
+      <VocalTrack />
     </div>
   );
 }
