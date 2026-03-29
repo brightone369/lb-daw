@@ -1,9 +1,11 @@
 import { NavLink, Navigate, Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
+import PitchCorrectionPage from './pages/PitchCorrectionPage';
 import './App.css';
 
 const navigationItems = [
   { to: '/', label: 'Home' },
+  { to: '/pitch-correction', label: 'Pitch Correction' },
 ];
 
 export default function App() {
@@ -32,6 +34,7 @@ export default function App() {
       <main className="app-content">
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/pitch-correction" element={<PitchCorrectionPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
