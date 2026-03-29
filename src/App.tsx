@@ -1,53 +1,40 @@
-import { useSequencer, STEPS } from './useSequencer';
+import { NavLink, Navigate, Route, Routes } from 'react-router-dom';
+import HomePage from './pages/HomePage';
 import './App.css';
 
+const navigationItems = [
+  { to: '/', label: 'Home' },
+];
+
 export default function App() {
-  const { tracks, bpm, setBpm, playing, currentStep, start, stop, toggleStep } = useSequencer();
-
   return (
-    <div className="daw">
-      <header>
-        <h1>LB DAW</h1>
-        <div className="transport">
-          <button onClick={playing ? stop : start} className={playing ? 'active' : ''}>
-            {playing ? '⏹ Stop' : '▶ Play'}
-          </button>
-          <label>
-            BPM
-            <input
-              type="number"
-              min={40}
-              max={240}
-              value={bpm}
-              onChange={(e) => setBpm(Number(e.target.value))}
-            />
-          </label>
+    <div className="app-shell">
+      <aside className="side-nav">
+        <div className="brand-block">
+          <p className="brand-kicker">Workspace</p>
+          <h1 className="brand-title">LB DAW</h1>
         </div>
-      </header>
 
-      <div className="sequencer">
-        <div className="step-numbers">
-          <div className="track-label" />
-          {Array.from({ length: STEPS }, (_, i) => (
-            <div key={i} className={`step-num ${currentStep === i ? 'active' : ''}`}>
-              {i + 1}
-            </div>
+        <nav className="nav-menu" aria-label="Primary navigation">
+          {navigationItems.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end
+              className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
+            >
+              {item.label}
+            </NavLink>
           ))}
-        </div>
+        </nav>
+      </aside>
 
-        {tracks.map((track, ti) => (
-          <div key={track.name} className="track">
-            <div className="track-label">{track.name}</div>
-            {track.steps.map((on, si) => (
-              <button
-                key={si}
-                className={`step ${on ? 'on' : ''} ${currentStep === si ? 'current' : ''}`}
-                onClick={() => toggleStep(ti, si)}
-              />
-            ))}
-          </div>
-        ))}
-      </div>
+      <main className="app-content">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </main>
     </div>
   );
 }

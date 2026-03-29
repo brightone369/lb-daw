@@ -1,25 +1,98 @@
-.daw {
-  padding: 2rem;
-  min-width: 700px;
+.app-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  background:
+    radial-gradient(circle at top left, rgba(74, 158, 255, 0.12), transparent 28%),
+    linear-gradient(180deg, #121212 0%, #0d0d0d 100%);
 }
 
-header {
+.side-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem 1.25rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(6, 6, 6, 0.72);
+  backdrop-filter: blur(10px);
+}
+
+.brand-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.brand-kicker,
+.page-eyebrow {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #6e6e6e;
+}
+
+.brand-title,
+.page-title {
+  font-size: 1.45rem;
+  letter-spacing: 0.08em;
+  color: #f4f4f4;
+}
+
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.nav-link {
+  display: block;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: #979797;
+  text-decoration: none;
+  background: transparent;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.nav-link:hover {
+  color: #f4f4f4;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.nav-link.active {
+  color: #f4f4f4;
+  border-color: rgba(74, 158, 255, 0.32);
+  background: rgba(74, 158, 255, 0.12);
+}
+
+.app-content {
+  min-width: 0;
+  padding: 2rem;
+}
+
+.page-panel {
+  min-height: 100%;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  background: rgba(17, 17, 17, 0.92);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.32);
+}
+
+.page-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 2rem;
-}
-
-h1 {
-  font-size: 1.4rem;
-  letter-spacing: 0.2em;
-  color: #aaa;
+  gap: 1rem;
 }
 
 .transport {
   display: flex;
   align-items: center;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .transport button {
@@ -34,6 +107,11 @@ h1 {
 .transport button.active {
   border-color: #e44;
   color: #e44;
+}
+
+.transport button:hover,
+.transport input:hover {
+  border-color: #666;
 }
 
 .transport label {
@@ -56,7 +134,13 @@ h1 {
   text-align: center;
 }
 
+.sequencer-wrap {
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
 .sequencer {
+  width: max-content;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -116,4 +200,29 @@ h1 {
 
 .step.on.current {
   background: #fff;
+}
+
+@media (max-width: 900px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .side-nav {
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .nav-menu {
+    flex-direction: row;
+  }
+
+  .app-content,
+  .page-panel {
+    padding: 1.25rem;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
