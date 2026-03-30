@@ -110,7 +110,8 @@
 }
 
 .transport button:hover,
-.transport input:hover {
+.transport input:hover,
+.transport select:hover {
   border-color: #666;
 }
 
@@ -132,6 +133,87 @@
   font-family: monospace;
   font-size: 0.85rem;
   text-align: center;
+}
+
+.transport button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.pitch-correction-layout {
+  display: grid;
+  gap: 1rem;
+  max-width: 46rem;
+}
+
+.pitch-status {
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+.pitch-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.9rem;
+}
+
+.pitch-controls label {
+  display: grid;
+  gap: 0.45rem;
+  color: #aaa;
+  font-size: 0.85rem;
+}
+
+.pitch-controls select,
+.pitch-controls input[type='range'] {
+  width: 100%;
+}
+
+.pitch-controls select {
+  background: #222;
+  border: 1px solid #444;
+  color: #eee;
+  padding: 0.55rem 0.7rem;
+  border-radius: 8px;
+  font-family: monospace;
+}
+
+.slider-field span {
+  color: #f4f4f4;
+}
+
+.audio-card {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.audio-card p {
+  color: #cfcfcf;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.audio-card audio {
+  width: 100%;
+}
+
+.download-link {
+  color: #8fc2ff;
+  text-decoration: none;
+}
+
+.download-link:hover {
+  text-decoration: underline;
+}
+
+.error-text {
+  margin: 0;
+  color: #ff7b7b;
 }
 
 .sequencer-wrap {

@@ -1,12 +1,25 @@
 import { useEffect, useRef, useState } from 'react';
+import {
+  NOTE_NAMES,
+  audioBufferToWavBlob,
+  correctPitch,
+  decodeAudioBlob,
+  type ScaleName,
+} from '../audio/pitchCorrection';
 
 export default function PitchCorrectionPage() {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const chunksRef = useRef<Blob[]>([]);
   const [isRecording, setIsRecording] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [recordingBlob, setRecordingBlob] = useState<Blob | null>(null);
   const [recordingUrl, setRecordingUrl] = useState<string | null>(null);
+  const [correctedUrl, setCorrectedUrl] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [selectedKey, setSelectedKey] = useState<string>('C');
+  const [selectedScale, setSelectedScale] = useState<ScaleName>('major');
+  const [correctionAmount, setCorrectionAmount] = useState(0.85);
 
   const stopStream = () => {
     streamRef.current?.getTracks().forEach((track) => track.stop());
@@ -36,8 +49,12 @@ export default function PitchCorrectionPage() {
       if (recordingUrl) {
         URL.revokeObjectURL(recordingUrl);
       }
+
+      if (correctedUrl) {
+        URL.revokeObjectURL(correctedUrl);
+      }
     };
-  }, [recordingUrl]);
+  }, [correctedUrl, recordingUrl]);
 
   const startRecording = async () => {
     if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === 'undefined') {
@@ -74,6 +91,7 @@ export default function PitchCorrectionPage() {
           type: recorder.mimeType || 'audio/webm',
         });
         const nextUrl = URL.createObjectURL(blob);
+        setRecordingBlob(blob);
 
         setRecordingUrl((currentUrl) => {
           if (currentUrl) {
@@ -81,6 +99,14 @@ export default function PitchCorrectionPage() {
           }
 
           return nextUrl;
+        });
+
+        setCorrectedUrl((currentUrl) => {
+          if (currentUrl) {
+            URL.revokeObjectURL(currentUrl);
+          }
+
+          return null;
         });
       };
 
@@ -92,7 +118,15 @@ export default function PitchCorrectionPage() {
       };
 
       recorder.start();
+      setRecordingBlob(null);
       setRecordingUrl((currentUrl) => {
+        if (currentUrl) {
+          URL.revokeObjectURL(currentUrl);
+        }
+
+        return null;
+      });
+      setCorrectedUrl((currentUrl) => {
         if (currentUrl) {
           URL.revokeObjectURL(currentUrl);
         }
@@ -116,11 +150,46 @@ export default function PitchCorrectionPage() {
     recorder.stop();
   };
 
+  const applyPitchCorrection = async () => {
+    if (!recordingBlob) {
+      return;
+    }
+
+    try {
+      setIsProcessing(true);
+      setErrorMessage(null);
+      const inputBuffer = await decodeAudioBlob(recordingBlob);
+      const correctedBuffer = correctPitch(inputBuffer, {
+        key: selectedKey,
+        scale: selectedScale,
+        amount: correctionAmount,
+      });
+      const wavBlob = audioBufferToWavBlob(correctedBuffer);
+      const nextUrl = URL.createObjectURL(wavBlob);
+
+      setCorrectedUrl((currentUrl) => {
+        if (currentUrl) {
+          URL.revokeObjectURL(currentUrl);
+        }
+
+        return nextUrl;
+      });
+    } catch {
+      setErrorMessage('Pitch correction failed. Record another take and try again.');
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
   const statusText = isRecording
     ? 'Recording...'
-    : recordingUrl
-      ? 'Ready to play back.'
-      : 'Record a short voice note.';
+    : isProcessing
+      ? 'Applying pitch correction...'
+      : correctedUrl
+        ? 'Corrected take ready.'
+        : recordingUrl
+          ? 'Ready to apply pitch correction.'
+          : 'Record a short voice note.';
 
   return (
     <section className="page-panel">
@@ -131,16 +200,72 @@ export default function PitchCorrectionPage() {
         </div>
       </header>
 
-      <div style={{ display: 'grid', gap: '1rem', maxWidth: '28rem' }}>
+      <div className="pitch-correction-layout">
         <div className="transport">
           <button onClick={isRecording ? stopRecording : startRecording} className={isRecording ? 'active' : ''}>
             {isRecording ? 'Stop recording' : 'Record voice'}
           </button>
-          <span style={{ color: '#aaa', fontSize: '0.9rem' }}>{statusText}</span>
+          <button onClick={applyPitchCorrection} disabled={!recordingBlob || isRecording || isProcessing}>
+            {isProcessing ? 'Processing...' : 'Apply correction'}
+          </button>
+          <span className="pitch-status">{statusText}</span>
         </div>
 
-        {recordingUrl ? <audio controls src={recordingUrl} style={{ width: '100%' }} /> : null}
-        {errorMessage ? <p style={{ margin: 0, color: '#ff7b7b' }}>{errorMessage}</p> : null}
+        <div className="pitch-controls">
+          <label>
+            Key
+            <select value={selectedKey} onChange={(event) => setSelectedKey(event.target.value)}>
+              {NOTE_NAMES.map((note) => (
+                <option key={note} value={note}>
+                  {note}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <label>
+            Scale
+            <select
+              value={selectedScale}
+              onChange={(event) => setSelectedScale(event.target.value as ScaleName)}
+            >
+              <option value="major">Major</option>
+              <option value="minor">Minor</option>
+              <option value="chromatic">Chromatic</option>
+            </select>
+          </label>
+
+          <label className="slider-field">
+            Amount
+            <input
+              type="range"
+              min={0}
+              max={100}
+              value={Math.round(correctionAmount * 100)}
+              onChange={(event) => setCorrectionAmount(Number(event.target.value) / 100)}
+            />
+            <span>{Math.round(correctionAmount * 100)}%</span>
+          </label>
+        </div>
+
+        {recordingUrl ? (
+          <div className="audio-card">
+            <p>Original take</p>
+            <audio controls src={recordingUrl} />
+          </div>
+        ) : null}
+
+        {correctedUrl ? (
+          <div className="audio-card">
+            <p>Corrected take</p>
+            <audio controls src={correctedUrl} />
+            <a href={correctedUrl} download="pitch-corrected.wav" className="download-link">
+              Download WAV
+            </a>
+          </div>
+        ) : null}
+
+        {errorMessage ? <p className="error-text">{errorMessage}</p> : null}
       </div>
     </section>
   );
