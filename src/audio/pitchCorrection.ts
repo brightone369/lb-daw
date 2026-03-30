@@ -278,3 +278,10 @@ export function audioBufferToWavBlob(buffer: AudioBuffer) {
 }
 
 export { NOTE_NAMES };
+export const __testing = {
+  detectPitch,
+  frequencyToMidi,
+  midiToFrequency,
+  mixPitchTarget,
+  snapMidiToScale,
+};
