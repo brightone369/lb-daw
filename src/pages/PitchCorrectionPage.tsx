@@ -11,6 +11,8 @@ export default function PitchCorrectionPage() {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const chunksRef = useRef<Blob[]>([]);
+  const recordingUrlRef = useRef<string | null>(null);
+  const correctedUrlRef = useRef<string | null>(null);
   const [isRecording, setIsRecording] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [recordingBlob, setRecordingBlob] = useState<Blob | null>(null);
@@ -45,16 +47,24 @@ export default function PitchCorrectionPage() {
   }, []);
 
   useEffect(() => {
+    recordingUrlRef.current = recordingUrl;
+  }, [recordingUrl]);
+
+  useEffect(() => {
+    correctedUrlRef.current = correctedUrl;
+  }, [correctedUrl]);
+
+  useEffect(() => {
     return () => {
-      if (recordingUrl) {
-        URL.revokeObjectURL(recordingUrl);
+      if (recordingUrlRef.current) {
+        URL.revokeObjectURL(recordingUrlRef.current);
       }
 
-      if (correctedUrl) {
-        URL.revokeObjectURL(correctedUrl);
+      if (correctedUrlRef.current) {
+        URL.revokeObjectURL(correctedUrlRef.current);
       }
     };
-  }, [correctedUrl, recordingUrl]);
+  }, []);
 
   const startRecording = async () => {
     if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === 'undefined') {
