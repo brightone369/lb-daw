@@ -1,11 +1,13 @@
 import { NavLink, Navigate, Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import PitchCorrectionPage from './pages/PitchCorrectionPage';
+import DecisionWireframePage from './pages/DecisionWireframePage';
 import './App.css';
 
 const navigationItems = [
   { to: '/', label: 'Home' },
   { to: '/pitch-correction', label: 'Pitch Correction' },
+  { to: '/decision-wireframe', label: 'Decision Wireframe' },
 ];
 
 export default function App() {
@@ -35,6 +37,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/pitch-correction" element={<PitchCorrectionPage />} />
+          <Route path="/decision-wireframe" element={<DecisionWireframePage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
