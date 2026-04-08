@@ -284,6 +284,327 @@
   background: #fff;
 }
 
+.decision-header {
+  align-items: end;
+}
+
+.decision-summary {
+  max-width: 28rem;
+  color: #a8a8a8;
+  line-height: 1.5;
+}
+
+.wireframe-brief {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.wireframe-note {
+  display: grid;
+  gap: 0.7rem;
+  padding: 1rem 1.1rem;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  color: #bdbdbd;
+  line-height: 1.5;
+}
+
+.wireframe-chip,
+.surface-kicker,
+.sidebar-label,
+.rail-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #7f7f7f;
+}
+
+.decision-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.85rem;
+}
+
+.metric-card {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.95rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.metric-card span {
+  color: #8b8b8b;
+  font-size: 0.76rem;
+}
+
+.metric-card strong {
+  color: #f6f6f6;
+  font-size: 1.1rem;
+}
+
+.wireframe-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.wireframe-surface {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01)),
+    rgba(10, 10, 10, 0.78);
+}
+
+.surface-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 1rem;
+}
+
+.surface-header h3 {
+  font-size: 1.05rem;
+  color: #f4f4f4;
+  margin-top: 0.3rem;
+}
+
+.surface-tabs,
+.toolbar-pills,
+.composer-actions,
+.call-controls,
+.vote-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.surface-tabs span,
+.toolbar-pills span,
+.composer-actions button,
+.call-controls button,
+.vote-actions button {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  color: #9a9a9a;
+  background: rgba(255, 255, 255, 0.02);
+  font-size: 0.78rem;
+}
+
+.surface-tabs .active,
+.composer-actions .active,
+.call-controls .active {
+  color: #f4f4f4;
+  border-color: rgba(143, 194, 255, 0.46);
+  background: rgba(74, 158, 255, 0.16);
+}
+
+.chat-wireframe,
+.call-wireframe {
+  display: grid;
+  gap: 1rem;
+}
+
+.chat-wireframe {
+  grid-template-columns: 180px minmax(0, 1fr) 260px;
+}
+
+.call-wireframe {
+  grid-template-columns: minmax(0, 1.5fr) 300px;
+}
+
+.channel-rail,
+.decision-sidebar,
+.call-sidebar,
+.chat-main,
+.call-stage {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.channel-rail,
+.decision-sidebar,
+.call-sidebar {
+  align-content: start;
+}
+
+.rail-block,
+.sidebar-card,
+.chat-toolbar,
+.composer-shell,
+.call-stage,
+.participant-tile,
+.speaker-main {
+  padding: 0.95rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.rail-block {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.rail-item {
+  width: 100%;
+  text-align: left;
+  padding: 0.7rem 0.8rem;
+  border-radius: 12px;
+  border: 1px dashed rgba(255, 255, 255, 0.14);
+  color: #c7c7c7;
+  background: transparent;
+}
+
+.rail-item.active {
+  border-style: solid;
+  border-color: rgba(143, 194, 255, 0.4);
+  background: rgba(143, 194, 255, 0.08);
+}
+
+.chat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.chat-timeline {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.timeline-card {
+  display: grid;
+  gap: 0.55rem;
+  padding: 1rem;
+  border: 1px dashed rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.timeline-card.proposal {
+  border-style: solid;
+}
+
+.timeline-card.vote {
+  background: rgba(74, 158, 255, 0.08);
+}
+
+.timeline-meta {
+  display: flex;
+  gap: 0.6rem;
+  color: #9f9f9f;
+  font-size: 0.8rem;
+}
+
+.timeline-card h4,
+.sidebar-card h4 {
+  color: #f3f3f3;
+  font-size: 0.95rem;
+}
+
+.timeline-card p,
+.sidebar-card p,
+.speaker-main span,
+.participant-tile span {
+  color: #b7b7b7;
+  line-height: 1.5;
+}
+
+.timeline-card small {
+  color: #858585;
+}
+
+.composer-shell {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.composer-actions button,
+.call-controls button,
+.vote-actions button {
+  cursor: default;
+}
+
+.composer-box {
+  min-height: 88px;
+  padding: 0.95rem;
+  border: 1px dashed rgba(255, 255, 255, 0.16);
+  border-radius: 14px;
+  color: #868686;
+}
+
+.vote-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.45rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  color: #c9c9c9;
+}
+
+.vote-row:first-of-type {
+  border-top: 0;
+}
+
+.stage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.speaker-panel {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.speaker-main {
+  min-height: 220px;
+  align-content: center;
+  background:
+    linear-gradient(135deg, rgba(143, 194, 255, 0.08), rgba(255, 255, 255, 0.02)),
+    rgba(255, 255, 255, 0.02);
+}
+
+.speaker-main strong {
+  display: block;
+  margin-top: 0.7rem;
+  font-size: 1rem;
+  color: #f4f4f4;
+}
+
+.speaker-side-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.participant-tile {
+  min-height: 92px;
+}
+
+.participant-tile strong {
+  display: block;
+  margin-bottom: 0.55rem;
+  color: #f2f2f2;
+}
+
+.agenda-list {
+  display: grid;
+  gap: 0.55rem;
+  margin-left: 1rem;
+  color: #c9c9c9;
+  line-height: 1.45;
+}
+
 @media (max-width: 900px) {
   .app-shell {
     grid-template-columns: 1fr;
@@ -306,5 +627,23 @@
   .page-header {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .chat-wireframe,
+  .call-wireframe {
+    grid-template-columns: 1fr;
+  }
+
+  .surface-header,
+  .chat-toolbar,
+  .stage-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .speaker-side-grid {
+    grid-template-columns: 1fr;
   }
 }
