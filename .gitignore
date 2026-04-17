@@ -28,3 +28,9 @@ tmp
 *.njsproj
 *.sln
 *.sw?
+
+# Misc
+.scripts
+.docs
+.tmp
+tmp
