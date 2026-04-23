@@ -202,6 +202,21 @@
   width: 100%;
 }
 
+.project-hero {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.project-hero-media {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
 .download-link {
   color: #8fc2ff;
   text-decoration: none;

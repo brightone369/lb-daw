@@ -1,10 +1,12 @@
 import { NavLink, Navigate, Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
+import LateNightTokioProjectPage from './pages/LateNightTokioProjectPage';
 import PitchCorrectionPage from './pages/PitchCorrectionPage';
 import './App.css';
 
 const navigationItems = [
   { to: '/', label: 'Home' },
+  { to: '/late-night-tokio-project', label: 'Late Night Tokio Project' },
   { to: '/pitch-correction', label: 'Pitch Correction' },
 ];
 
@@ -34,6 +36,7 @@ export default function App() {
       <main className="app-content">
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/late-night-tokio-project" element={<LateNightTokioProjectPage />} />
           <Route path="/pitch-correction" element={<PitchCorrectionPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
