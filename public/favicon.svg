@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title>LB favicon</title>
+  <rect x="5" y="5" width="54" height="54" rx="11" fill="none" stroke="#4a9eff" stroke-width="2" opacity="0.75" />
+  <text
+    x="32"
+    y="40"
+    text-anchor="middle"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="27"
+    font-weight="700"
+    letter-spacing="0"
+    fill="#f5f7ff"
+  >
+    LB
+  </text>
+</svg>
